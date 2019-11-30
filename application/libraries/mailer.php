@@ -1,6 +1,8 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed'); 
 
 use PHPMailer\PHPMailer\PHPMailer;
+use PHPMailer\PHPMailer\SMTP;
+use PHPMailer\PHPMailer\Exception;
 
 class Mailer extends PHPMailer {
 
@@ -24,8 +26,8 @@ class Mailer extends PHPMailer {
 		$this->Password = $this->config->item('password', 'mailer');
 		$this->Port     = 587;
         $this->setFrom($this->config->item('username', 'mailer'), $this->config->item('name', 'mailer'));
-        $this->isHTML(true);
-
+		$this->isHTML(true);
+		
 		switch ($this->config->load('mailer', true)) {
 			case 'smtp':
 				$this->isSMTP();

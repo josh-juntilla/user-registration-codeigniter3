@@ -210,12 +210,11 @@ class Auth extends CI_Controller {
                 try {
                     $this->load->library('mailer');
                     $this->mailer->addAddress($this->input->post('email'));
-
                     $this->mailer->Subject = 'Forgot Password';
                     $this->mailer->Body    = $this->load->view('newsletter/forgot_password', array(
                         'forgot_url' => $url,
                     ), true);
-
+                    
                     $this->mailer->send();
                 } catch (Exception $e) {
                     echo 'Message could not be sent. Mailer Error: ', $this->mailer->ErrorInfo;
