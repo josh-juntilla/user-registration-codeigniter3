@@ -5,6 +5,7 @@ use PHPMailer\PHPMailer\SMTP;
 use PHPMailer\PHPMailer\Exception;
 
 class Mailer extends PHPMailer {
+	
 
 	public function __construct()
 	{
@@ -31,7 +32,14 @@ class Mailer extends PHPMailer {
 		switch ($this->config->load('mailer', true)) {
 			case 'smtp':
 				$this->isSMTP();
-        		$this->SMTPAuth = $this->config->item('smtp_auth', 'mailer');
+				$this->SMTPAuth = $this->config->item('smtp_auth', 'mailer');
+				$this->SMTPOptions = [
+					'ssl' => [
+						'verify_peer' => false,
+						'verify_peer_name' => false,
+						'allow_self_signed' => true
+					]
+				];
 				break;
 		}
 	}
